@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exclusive student discounts from top brands. Save money on tech, fashion, food and more with StudyDealz.">
+    <title>StudyDealz - Student Discounts</title>
+
+    <!-- this link is used for adding attractive fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+   <!-- this is used for jquery-->
+   
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  
+  <!-- css file -->
+  <style>
+        /* Splash Screen Styles */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #310a63; 
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        #logo {
+            font-size: 48px;
+            font-weight: bold;
+            display: none;
+        }
+
+        #quote {
+            font-size: 18px;
+            margin-top: 20px;
+            display: none;
+            font-style: italic;
+        }
+
+        /* Color variables */
+        :root {
+            --primary: #310a63;
+            --secondary: #2a2323;
+            --light-gray: #f8f8f8;
+            --medium-gray: #5b628e;
+            --dark-gray: #7573de;
+            --white: #ffffff;
+            --black: #000000;
+            --shadow: 0 2px 10px rgba(6, 5, 14, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: rgb(91, 203, 201);
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-align: center;
+            transition: var(--transition);
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .btn-outline {
+            background-color: navy;
+            color: white;
+            border: 2px solid navy;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }  
+
+        .btn-solid {
+            background-color: white;
+            color: black;
+            border: 2px solid rgb(53, 27, 155);
+            margin-left: 20px;
+            white-space: nowrap;
+        }
+
+        .btn-solid:hover {
+            background-color: skyblue;
+            color: var(--primary);
+        }
+
+        .footer-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--white);
+            background-color: transparent;
+            border: 1px solid var(--white);
+            transition: var(--transition);
+        }
+
+        .footer-btn:hover {
+            background-color: rgb(166, 235, 6);
+            color: rgb(244, 244, 244);
+        }
+
+        /* Cookie popup */
+        .cookie-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 25px;
+            border: 1px solid #ddd;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            z-index: 9999;
+            display: none;
+        }
+
+        .cookie-popup.active {
+            display: block !important;
+        }
+        
+        .cookie-popup h2 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .cookie-popup p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .cookie-popup-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+        
+        .cookie-popup button {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .accept-btn {
+            background-color: #000;
+            color: white;
+            border: none;
+        }
+        
+        .reject-btn {
+            background-color: white;
+            color: #000;
+            border: 2px solid #000;
+        }
+        
+        .accept-btn:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+        }
+        
+        .reject-btn:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: rgb(6, 37, 99);
+        }
+        
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            font-weight: 500;
+            font-size: 18px;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--black);
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.3s ease-in-out;
+        }
+        
+        .nav-links a:hover {
+            color: rgb(27, 144, 247);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: rgb(241, 232, 249);
+            border-radius: 90px;
+            padding: 9px 10px;
+            width: 300px;
+            position: relative;
+        }
+        
+        .search-bar input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            padding: 5px;
+            outline: none;
+            font-size: 16px;
+        }
+        
+        .search-bar i {
+            color: var(--dark-gray);
+            margin-right: 10px;
+        }
+        
+        /* Search Suggestions */
+        #search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
+            border-top: none;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .suggestion-header {
+            padding: 8px 15px;
+            font-weight: bold;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+
+        .suggestion-item {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .no-results {
+            color: #666;
+            font-style: italic;
+            padding: 10px 15px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(22, 7, 48, 0.5), rgba(121, 32, 32, 0.5)), url('image/bc.avif');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 80px 5%;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* Featured Brands */
+        .featured-brands {
+            padding: 50px 5%;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+        }
+        
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 20px auto 0;
+        }
+        
+        .brand-card {
+            background-color: var(--white);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .brand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(214, 74, 74, 0.15);
+        }
+        
+        .brand-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .brand-image {
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--light-gray);
+        }
+        
+        .brand-image img {
+            max-height: 80px;
+            max-width: 80%;
+            object-fit: contain;
+        }
+        
+        .brand-info {
+            padding: 15px;
+            border-top: 1px solid var(--medium-gray);
+        }
+        
+        .brand-info h3 {
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .discount-badge {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 50px 5%;
+            background-color: var(--white);
+            text-align: center;
+        }
+        
+        .steps-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 40px auto 0;
+            gap: 20px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            padding: 20px;
+        }
+        
+        .step-number {
+            background-color: var(--primary);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: 700;
+        }
+        
+        .step h3 {
+            margin-bottom: 10px;
+        }
+
+        /* Tests */
+        .tests {
+            padding: 50px 5%;
+            background-color: var(--light-gray);
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 40px auto 0;
+        }
+        
+        .test-card {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .test-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .test-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--medium-gray);
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--dark-gray);
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 20px 10px;
+            font-size: 14px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            align-items: start;
+        }
+
+        .footer-logo {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .footer-col p {
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .footer-col h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .footer-links {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .back-to-top {
+            text-align: center;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .back-to-top a {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 1px solid var(--white);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .back-to-top a:hover {
+            background-color: rgb(166, 235, 6);
+            color: rgb(244, 244, 244);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+        
+            .nav-links {
+                gap: 15px;
+            }
+        
+            .search-bar {
+                width: 100%;
+                margin: 15px 0;
+            }
+        
+            .hero h1 {
+                font-size: 32px;
+            }
+        
+            .hero-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        
+            .steps-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        
+            .step {
+                max-width: 100%;
+            }
+
+            .cookie-popup-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .cookie-popup button {
+                width: 100%;
+            }
+
+            .back-to-top {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+           <div id="splash-screen">
+           <div id="splash-content">
+           <h1 id="logo">StudyDealz</h1>
+           <p id="quote">Unlock exclusive student savings!</p>
+           </div>
+           </div>
+           <div id="main-content" style="display: none;">
+  
+ <!-- Cookie Popup -->
+           <div class="cookie-popup" id="cookiePopup">
+            <h2>We use cookies to enhance your experience</h2>
+            <p>By continuing to browse, you agree to our use of cookies. We use cookies to provide our services and analyze site usage.</p>
+            <div class="cookie-popup-buttons">
+                <button class="reject-btn" id="rejectCookies">Reject All</button>
+                <button class="accept-btn" id="acceptCookies">Accept All</button>
+            </div>
+            </div>
+
+<!-- Header -->
+ <header>
+            <div class="header-container">
+            <div class="logo">Study<span>Dealz</span></div>
+            <nav class="nav-links">
+                    <b><a href="Home.html">Home</a></b>
+                    <b><a href="Brands.html">Brands</a></b>
+                    <b><a href="news.html">News</a></b>
+                    <b><a href="About.html">About us</a></b>
+            </nav>
+            <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search brands..." aria-label="Search brands">
+             <div id="search-results">
+            <div class="recent-searches" id="recentSearches"></div>
+            </div>      
+            </div>     
+            <a href="register.html" class="btn btn-solid register-btn">Register</a>
+            </div>
+ </header>
+
+ <!-- Hero Section -->
+           <section class="hero">
+            <div class="hero-content">
+            <h1>Welcome to StudyDealz</h1>
+            <p>Join thousands of students saving money every day with exclusive discounts from top brands.</p>
+            <div class="hero-buttons">
+             <a href="#featured-brands" class="btn btn-outline">SHOP NOW</a>
+             </div>
+            </div>
+        </section>
+
+
+
+ <!--this is for  Featured Brands -->
+
+        <section class="featured-brands" id="featured-brands">
+         <h2 class="section-title">Featured Brands</h2>
+        <div class="brand-grid">
+ <!-- Apple -->
+            <a href="https://www.apple.com/uk-edu/store" target="_blank" class="brand-card-link">
+            <div class="brand-card">
+            <div class="brand-image">
+             <img src="image/Apple_logo_black.svg.png" alt="Apple logo">  
+            </div>
+             <div class="brand-info">
+            <h3>Apple</h3>
+            <span class="discount-badge">10% OFF</span>
+            <span class="discount-badge">Education Savings</span>
+            </div>
+            </div>
+ </a>
+                
+ <!-- Deliveroo -->
+           <a href="https://www.deliveroostudents.co.uk/" target="_blank" class="brand-card-link">
+           <div class="brand-card">
+          <div class="brand-image">
+          <img src="image/Deliveroo_Logo.svg.png" alt="Deliveroo logo">
+          </div>
+          <div class="brand-info">
+          <h3>Deliveroo</h3>
+         <span class="discount-badge">FREE DELIVERY</span>
+         <span class="discount-badge">VOUCHER</span>
+                        </div>
+                    </div>
+                
+</a>
+                
+   <!-- Nike -->
+                <a href="https://www.nike.com/gb/student-discount" target="_blank" class="brand-card-link">
+                <div class="brand-card">
+                <div class="brand-image">
+                 <img src="image/Logo_NIKE.svg.png" alt="Nike logo">
+                  </div>
+                 <div class="brand-info">
+                <h3>Nike</h3>
+              <span class="discount-badge">10% OFF</span>
+                </div>
+                 </div>
+                </a>
+                
+<!-- Booking.com -->
+                <a href="https://www.booking.com/" target="_blank" class="brand-card-link">
+                <div class="brand-card">
+                <div class="brand-image">
+                 <img src="image/Booking.com_logo.svg.png" alt="Booking.com logo">
+                </div>
+                <div class="brand-info">
+                 <h3>Booking.com</h3>
+                 <span class="discount-badge">10% OFF</span>
+                </div>
+                </div>
+                </a>
+                
+<!-- Amazon -->
+                <a href="https://www.amazon.co.uk/Amazon-Student-Free-One-Day-Delivery/b?ie=UTF8&node=2973324031" target="_blank" class="brand-card-link">
+                 <div class="brand-card">
+                 <div class="brand-image">
+                 <img src="image/Amazon_logo.svg.png" alt="Amazon logo">
+                </div>
+                <div class="brand-info">
+                <h3>Amazon</h3>
+                <span class="discount-badge">50% OFF</span>
+ </div>
+</div>
+</a>
+                
+<!-- Acer -->
+                <a href="https://store.acer.com/en-gb/education-offer#" target="_blank" class="brand-card-link">
+                 <div class="brand-card">
+                 <div class="brand-image">
+              <img src="image/Acer_Logo.svg.png" alt="Acer logo">
+                </div>
+               <div class="brand-info">
+              <h3>Acer</h3>
+              <span class="discount-badge">18% OFF</span>
+                    </div>
+                    </div>
+                    </a>
+                
+<!-- Fitbit -->
+                <a href="https://store.google.com/gb/category/watches_trackers?hl=en-GB" target="_blank" class="brand-card-link">
+              <div class="brand-card">
+             <div class="brand-image">
+            <img src="image/Fitbit_logo16.svg.png" alt="Fitbit logo">
+            </div>
+            <div class="brand-info">
+             <h3>Fitbit</h3>
+             <span class="discount-badge">25% OFF premium</span>
+                        </div>
+                       </div>
+                </a>
+                
+                <!-- Netflix -->
+                <a href="https://www.netflix.com/gb/" target="_blank" class="brand-card-link">       
+               <div class="brand-card">
+              <div class="brand-image">
+             <img src="image/Netflix_2015_logo.svg.png" alt="Netflix logo">
+             </div>
+            <div class="brand-info">
+             <h3>Netflix</h3>
+             <span class="discount-badge">5.99 OFF</span>
+                        </div>
+                        </div>
+                         </a>
+                         </div>
+            
+ <!-- Browse all deals button -->
+            <div style="display: flex; justify-content: center; margin-top: 30px;">
+                <a href="Brands.html" class="btn btn-outline">Browse All Deals</a>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="how-it-works">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Browse Offers</h3>
+                    <p>Explore a wide range of exclusive student discounts from top brands.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Pick Your Deal</h3>
+                    <p>Choose the deals that fit your needs !</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Start Saving</h3>
+                    <p>Use your discount codes instantly and save on your favorite brands.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tests-->
+        <section class="tests">
+               <h2 class="section-title">What Students Say</h2>
+               <div class="test-grid">
+              <div class="test-card">
+           <p class="test-text">"I've saved hundreds of pounds on tech and software through StudyDealz. Essential for any student!"</p>
+              <div class="test-author">
+              <div class="author-avatar">M</div>
+              <div class="author-info">
+              <h4>Magnus carlos</h4>
+              <p>University of Manchester</p>
+                    </div>
+                    </div>
+                   </div>
+
+                <div class="test-card">
+                    <p class="test-text">"The fashion discounts are amazing. I refresh my wardrobe every semester at student prices."</p>
+                    <div class="test-author">
+                    <div class="author-avatar">T</div>
+                    <div class="author-info">
+                     <h4>Thomas Basnet</h4>
+                     <p>King's College London</p>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="test-card">
+                <p class="test-text">"I found the best deal for my new laptop through StudyDealz — saved a ton compared to regular prices! It made a huge difference for my studies. Highly recommend!"</p>
+                <div class="test-author">
+                <div class="author-avatar">I</div>
+                <div class="author-info">
+                <h4>Issac Newton</h4>
+               <p>University of Edinburgh</p>
+                    </div>
+                    </div>
+                     </div>
+                    </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-container">
+                <div class="footer-col">
+                    <div class="footer-logo">StudyDealz</div>
+                    <p>Exclusive student discounts from your favorite brands.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/suraj.khanal.3591" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/Shishir1589302?t=UppMbf75izDm8gxLYG4yiA&s=08" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/sishirkatuwal?igsh=MXBrNm8weWo2N3FjMQ==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            
+                <div class="footer-col">
+                    <h3>About Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="About.html#team-section">Who We Are</a></li>
+                        <li><a href="About.html#mission">Our Mission</a></li>
+                    </ul>
+                </div>
+            
+                <div class="footer-col">
+                    <h3>Help</h3>
+                    <ul class="footer-links">
+                        <li><a href="contact us.html">Contact Us</a></li>
+                        <li><a href="Terms & privacy.html">Terms & Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="back-to-top">
+                <a href="#top">Back to Top</a>
+                <a href="review.html" class="footer-btn">Leave a Review</a>
+            </div>
+        
+            <div class="copyright">
+                &copy; 2025 StudyDealz. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+
+        // splash jquery
+
+        $(document).ready(function() {
+            if (!sessionStorage.getItem('splashShown')) {
+                $('#splash-screen').show();
+                $('#main-content').hide(); 
+                
+                // Fade in logo and quote
+                setTimeout(function() {
+                    $('#logo').fadeIn(1000);
+                    $('#quote').fadeIn(1000);
+                }, 500);
+
+                setTimeout(function() {
+                    $('#splash-screen').fadeOut(1000, function() {
+                        $('#main-content').show(); 
+                    });
+                    sessionStorage.setItem('splashShown', 'true');
+                }, 2500); 
+            } else {
+                $('#splash-screen').hide();
+                $('#main-content').show();
+            }
+        });
+
+        // SEARCH FUNCTIONALITY
+        const brands = [
+            { name: "Deliveroo", link: "https://www.deliveroostudents.co.uk/" },
+            { name: "Adobe", link: "https://www.adobe.com/uk/creativecloud/buy/students" },
+            { name: "Apple", link: "https://www.apple.com/uk-edu/store" },
+            { name: "Amazon", link: "https://www.amazon.co.uk/Amazon-Student-Free-One-Day-Delivery/b?ie=UTF8&node=2973324031" },
+            { name: "Nike", link: "https://www.nike.com/gb/student-discount" },
+            { name: "Microsoft", link: "https://www.microsoft.com/en-gb/education" },
+            { name: "Netflix", link: "https://www.netflix.com/gb/" },
+            { name: "Booking.com", link: "https://www.booking.com" },
+            { name: "Acer", link: "https://www.acer.com/ac/en/GB/content/student-discount" },
+            { name: "Fitbit", link: "https://www.fitbit.com/global/uk/home" },
+            { name: "Spotify", link: "https://www.spotify.com/uk/student/" }, 
+            { name: "ASOS", link: "https://www.asos.com/student/" },
+        ];
+
+        function initSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('search-results');
+            const searchContainer = document.querySelector('.search-bar');
+            const recentSearches = document.getElementById('recentSearches');
+
+            if (!searchInput || !searchResults || !searchContainer) return;
+
+            // searches from localStorage
+            let recentSearchItems = JSON.parse(localStorage.getItem('recentSearches')) || [];
+            updateRecentSearchesDisplay();
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                searchResults.innerHTML = '';
+                
+                if (searchTerm === '') {
+                    updateRecentSearchesDisplay();
+                    return;
+                }
+                
+                const filteredBrands = brands.filter(brand => 
+                    brand.name.toLowerCase().includes(searchTerm)
+                );
+                
+                if (filteredBrands.length === 0) {
+                    searchResults.innerHTML = '<div class="suggestion-item no-results">No brands found</div>';
+                    searchResults.style.display = 'block';
+                    return;
+                }
+
+                filteredBrands.forEach(brand => {
+                    const brandElement = document.createElement('div');
+                    brandElement.className = 'suggestion-item';
+                    brandElement.textContent = brand.name;
+                    brandElement.addEventListener('click', () => {
+                        addToRecentSearches(brand.name);
+                        window.location.href = brand.link;
+                    });
+                    searchResults.appendChild(brandElement);
+                });
+
+                searchResults.style.display = 'block';
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!searchContainer.contains(e.target)) {
+                    searchResults.style.display = 'none';
+                }
+            });
+
+            function addToRecentSearches(searchTerm) {
+                recentSearchItems = recentSearchItems.filter(item => item !== searchTerm);
+                recentSearchItems.unshift(searchTerm);
+                recentSearchItems = recentSearchItems.slice(0, 5);
+                localStorage.setItem('recentSearches', JSON.stringify(recentSearchItems));
+                updateRecentSearchesDisplay();
+            }
+
+            function updateRecentSearchesDisplay() {
+                recentSearches.innerHTML = '';
+                
+                if (recentSearchItems.length > 0) {
+                    const title = document.createElement('div');
+                    title.className = 'suggestion-header';
+                    title.textContent = 'Recent Searches';
+                    recentSearches.appendChild(title);
+                    
+                    recentSearchItems.forEach(item => {
+                        const searchItem = document.createElement('div');
+                        searchItem.className = 'suggestion-item';
+                        searchItem.textContent = item;
+                        searchItem.addEventListener('click', () => {
+                            searchInput.value = item;
+                            searchInput.dispatchEvent(new Event('input'));
+                        });
+                        recentSearches.appendChild(searchItem);
+                    });
+                }
+                
+                searchResults.style.display = recentSearchItems.length > 0 ? 'block' : 'none';
+            }
+        }
+
+        // COOKIE FUNCTIONALITY
+        function initCookiePopup() {
+            const popup = document.getElementById('cookiePopup');
+            const acceptBtn = document.getElementById('acceptCookies');
+            const rejectBtn = document.getElementById('rejectCookies');
+
+            if (!popup || !acceptBtn || !rejectBtn) {
+                console.error('Cookie popup elements not found!');
+                return;
+            }
+
+            // Check for existing cookie
+            const hasCookie = document.cookie.includes('cookieConsent=');
+
+            // Show popup if no cookie exists
+            if (!hasCookie) {
+                popup.style.display = 'block';
+            }
+
+            acceptBtn.onclick = () => {
+                document.cookie = "cookieConsent=accepted; max-age=31536000; path=/; SameSite=Lax";
+                popup.style.display = 'none';
+            };
+
+            rejectBtn.onclick = () => {
+                document.cookie = "cookieConsent=rejected; max-age=31536000; path=/; SameSite=Lax";
+                popup.style.display = 'none';
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initSearch();
+            initCookiePopup();
+        });
+    </script>
+</body>
+</html>
