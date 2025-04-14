@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reviews - StudyDealz</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Define CSS Variables for easy theming */
+    :root {
+      --primary: rgb(6, 37, 99);
+      --secondary: rgb(91, 203, 201);
+      --white: #ffffff;
+      --light-gray: #f0f0f0;
+      --dark-gray: #666;
+      --shadow: 0 2px 10px rgba(6, 5, 14, 0.1);
+    }
+
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background-color: var(--secondary);
+      color: #2a2323;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .logo span {
+      color: var(--secondary);
+    }
+
+    /* Navigation */
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      font-weight: 500;
+      transition: color 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Search Bar */
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background-color: var(--light-gray);
+      border-radius: 4px;
+      padding: 8px 15px;
+      width: 300px;
+    }
+
+    .search-bar input {
+      border: none;
+      background: transparent;
+      width: 100%;
+      padding: 5px;
+      outline: none;
+    }
+
+    .search-bar i {
+      color: var(--dark-gray);
+      margin-right: 10px;
+    }
+
+    /* Review Container */
+    .review-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 40px;
+      color: var(--primary);
+    }
+
+    .review-form {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      margin-bottom: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    textarea {
+      height: 120px;
+      resize: vertical;
+    }
+
+    /* Improved Star Rating using row-reverse */
+    .rating {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-start;
+      gap: 5px;
+      margin-bottom: 15px;
+    }
+
+    .rating input {
+      display: none;
+    }
+
+    .rating label {
+      font-size: 30px;
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    /* Fill stars on hover and selection */
+    .rating input:checked ~ label,
+    .rating label:hover,
+    .rating label:hover ~ label {
+      color: #ffc107;
+    }
+
+    .btn {
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #1e0752;
+    }
+
+    /* Reviews List */
+    .reviews-list {
+      margin-top: 40px;
+    }
+
+    .review-card {
+      background: var(--white);
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .review-author {
+      font-weight: 600;
+    }
+
+    .review-date {
+      color: var(--dark-gray);
+      font-size: 14px;
+    }
+
+    .review-rating {
+      color: #ffc107;
+      margin-bottom: 10px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #2a2323;
+      color: #ffffff;
+      padding: 30px 5%;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .review-form {
+        padding: 20px;
+      }
+      
+      .review-header {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .search-bar {
+        width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">Study<span>Dealz</span></div>
+      <nav class="nav-links">
+        <a href="Home.html">Home</a>
+        <a href="Brands.html">Brands</a>
+        <a href="news.html">News</a>
+        <a href="About.html">About</a>
+        <a href="Contact.html">Contact us</a>
+        <a href="review.html" class="active">Review us</a>
+      </nav>
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search...">
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="review-container">
+    <h1 class="page-title">Share Your Experience</h1>
+
+    <!-- Review Form -->
+    <section class="review-form">
+      <h2>Write a Review</h2>
+      <form id="reviewForm">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email (optional)</label>
+          <input type="email" id="email">
+        </div>
+
+        <div class="form-group">
+          <label>Your Rating</label>
+          <div class="rating">
+            <!-- Star rating is implemented in reverse order for proper CSS sibling selection -->
+            <input type="radio" id="star5" name="rating" value="5">
+            <label for="star5">★</label>
+            <input type="radio" id="star4" name="rating" value="4">
+            <label for="star4">★</label>
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3">★</label>
+            <input type="radio" id="star2" name="rating" value="2">
+            <label for="star2">★</label>
+            <input type="radio" id="star1" name="rating" value="1">
+            <label for="star1">★</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="review">Your Review</label>
+          <textarea id="review" required></textarea>
+        </div>
+
+        <button type="submit" class="btn">Submit Review</button>
+      </form>
+    </section>
+
+    <!-- Reviews List -->
+    <section class="reviews-list">
+      <h2>Recent Reviews</h2>
+
+      <div class="review-card">
+        <div class="review-header">
+          <span class="review-author">Sarah Singh</span>
+          <span class="review-date">June 15, 2023</span>
+        </div>
+        <div class="review-rating">★★★★★</div>
+        <p>"StudyDealz saved me over £200 on my new laptop! The student discounts are real and easy to use. Highly recommend to all students!"</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-header">
+          <span class="review-author">Michael Sapkota</span>
+          <span class="review-date">May 28, 2023</span>
+        </div>
+        <div class="review-rating">★★★★☆</div>
+        <p>"Great selection of brands. Found some amazing deals on software subscriptions. The site could be a bit faster though."</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-header">
+          <span class="review-author">Aaju Bhai</span>
+          <span class="review-date">April 10, 2023</span>
+        </div>
+        <div class="review-rating">★★★★★</div>
+        <p>"As an international student, these discounts have been a lifesaver. The food delivery vouchers especially help stretch my budget."</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2023 StudyDealz. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript for Form Handling -->
+  <script>
+    document.getElementById('reviewForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Get form values
+      const name = document.getElementById('name').value;
+      // Optional email field
+      const email = document.getElementById('email').value;
+      const rating = document.querySelector('input[name="rating"]:checked')?.value;
+      const reviewText = document.getElementById('review').value;
+
+      // Validate required fields
+      if (!name || !rating || !reviewText) {
+        alert('Please fill in all required fields');
+        return;
+      }
+
+      // Simple confirmation feedback (would be replaced by actual submission logic)
+      alert('Thank you for your review! It will be published after moderation.');
+
+      // Reset form
+      this.reset();
+    });
+  </script>
+</body>
+</html>
