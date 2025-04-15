@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>StudyDealz - Brands</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+
+    :root {
+        --primary: #310a63;
+        --secondary: #2a2323;
+        --light-gray: #f8f8f8;
+        --medium-gray: #5b628e;
+        --dark-gray: #7573de;
+        --white: #ffffff;
+        --black: #000000;
+        --shadow: 0 2px 10px rgba(6, 5, 14, 0.1);
+        --transition: all 0.3s ease;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    body {
+        background-color: rgb(91, 203, 201);
+        color: var(--secondary);
+        line-height: 1.6;
+    }
+    
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    
+  /* header */
+    header {
+        background-color: var(--white);
+        box-shadow: var(--shadow);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    
+    .header-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .logo {
+        font-size: 28px;
+        font-weight: 700;
+        color: rgb(6, 37, 99);
+    }
+    
+    .nav-links {
+        display: flex;
+        justify-content: center;
+        flex-grow: 1;
+        gap: 25px;
+    }
+    
+    .nav-links a {
+        font-weight: 500;
+        font-size: 18px;
+        position: relative;
+        transition: var(--transition);
+    }
+    
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: var(--black);
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: width 0.3s ease-in-out;
+    }
+    
+    .nav-links a:hover {
+        color: rgb(27, 144, 247);
+    }
+    
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    
+
+      /* Brands Page Styles */
+   
+    .brands-hero {
+        background: linear-gradient(rgba(22, 7, 48, 0.5), rgba(121, 32, 32, 0.5)), 
+                    url('image/hand.avif');
+        background-size: cover;
+        background-position: center;
+        color: var(--white);
+        padding: 100px 5%;
+        text-align: center;
+    }
+    
+    .brands-hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .brands-hero h1 {
+        font-size: 42px;
+        margin-bottom: 20px;
+    }
+    
+    .brands-hero p {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+    
+    /* Brands Filter */
+    .brands-filter {
+        background-color: var(--white);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+        max-width: 1200px;
+        margin: -30px auto 40px;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .filter-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+    }
+    
+    .filter-btn {
+        padding: 8px 16px;
+        border-radius: 20px;
+        background-color: var(--light-gray);
+        border: none;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    
+    .filter-btn:hover, .filter-btn.active {
+        background-color: var(--primary);
+        color: var(--white);
+    }
+    
+    /* Brands Grid */
+    .brands-container {
+        padding: 50px 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .brands-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 30px;
+    }
+    
+    .brand-card-large {
+        background-color: var(--white);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+    }
+    
+    .brand-card-large:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(214, 74, 74, 0.15);
+    }
+    
+    .brand-image-large {
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--light-gray);
+    }
+    
+    .brand-image-large img {
+        max-height: 100px;
+        max-width: 80%;
+        object-fit: contain;
+    }
+    
+    .brand-info-large {
+        padding: 20px;
+    }
+    
+    .brand-info-large h3 {
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+    
+    .brand-discount {
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 15px;
+        display: block;
+    }
+    
+    .brand-description {
+        color: var(--medium-gray);
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    
+    .brand-link {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: var(--primary);
+        color: var(--white);
+        border-radius: 4px;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+    
+    .brand-link:hover {
+        background-color: #1e0750;
+    }
+    
+   
+    
+       /* Footer Section */
+ 
+    footer {
+            background: #111;
+            color: #fff;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #ccc;
+        }
+        
+        .copyright {
+            font-size: 14px;
+            color: #888;
+        }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .header-container {
+            flex-direction: column;
+            gap: 15px;
+            padding: 15px;
+        }
+    
+        .nav-links {
+            gap: 15px;
+        }
+    
+        .search-bar {
+            width: 100%;
+            margin: 15px 0;
+        }
+    
+        .brands-hero h1 {
+            font-size: 32px;
+        }
+    
+        .brands-grid {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+    }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+            <div class="header-container">
+            <div class="logo">Study<span>Dealz</span></div>
+            <nav class="nav-links">
+                <a href="Home.html">Home</a>
+                <a href="news.html">News</a>
+                <a href="About.html">About Us</a>
+                <a href="review.html">Reviews</a>
+            </nav>
+            </div>
+           </div>
+ </header>
+
+ <!-- Brands Hero Section -->
+        <section class="brands-hero">
+        <div class="brands-hero-content">
+            <h1>Student Discounts from Top Brands</h1>
+            <p>Discover exclusive deals from your favorite brands and save money on everything you need.</p>
+        </div>
+        </section>
+
+<!-- Brands Filter -->
+        <div class="brands-filter">
+        <div class="filter-options">
+            <button class="filter-btn active" data-category="all">All Brands</button>
+            <button class="filter-btn" data-category="tech">Technology</button>
+            <button class="filter-btn" data-category="fashion">Fashion</button>
+            <button class="filter-btn" data-category="food">Food & Drink</button>
+            <button class="filter-btn" data-category="travel">Travel</button>
+            <button class="filter-btn" data-category="health">Health & Fitness</button>
+        </div>
+        </div>
+
+<!-- Brands Grid -->
+        <section class="brands-container">
+        <div class="brands-grid">
+          
+  <!-- Apple -->
+         <div class="brand-card-large" data-category="tech">
+         <div class="brand-image-large">
+                    <img src="image/Apple_logo_black.svg.png" alt="Apple">
+         </div>
+         <div class="brand-info-large">
+         <h3>Apple</h3>
+         <span class="brand-discount">Education Pricing: Up to 10% OFF </span>
+         <span class="brand-discount"><b>COUPON-CODE=<u>AP30</u></b> </span>
+         <p class="brand-description">Exclusive education pricing on Mac, iPad, and more for students and educators.</p>
+         <a href="https://www.apple.com/uk-edu/store" class="brand-link" target="_blank">Get Deal</a>
+</div>
+</div>
+
+<!-- Amazon -->
+            <div class="brand-card-large" data-category="tech">
+            <div class="brand-image-large">
+                    <img src="image/Amazon_logo.svg.png" alt="Amazon">
+            </div>
+            <div class="brand-info-large">
+            <h3>Amazon</h3>
+            <span class="brand-discount">6 Months FREE Prime + 50% OFF</span>
+            <span class="brand-discount"><b>COUPON-CODE=<u>AZ61</u></b> </span>
+            <p class="brand-description">Free fast delivery, Prime Video, and exclusive student deals.</p>
+            <a href="https://www.amazon.co.uk/Amazon-Student-Free-One-Day-Delivery/b?ie=UTF8&node=2973324031" class="brand-link" target="_blank">Get Deal</a>
+ </div>
+</div>
+
+ <!-- Nike -->
+            <div class="brand-card-large" data-category="fashion">
+             <div class="brand-image-large">
+                    <img src="image/Logo_NIKE.svg.png" alt="Nike">
+            </div>
+            <div class="brand-info-large">
+            <h3>Nike</h3>
+            <span class="brand-discount">10% OFF for Students</span>
+            <span class="brand-discount"><b>COUPON-CODE=<u>NK40</u></b> </span>
+            <p class="brand-description">Discount on shoes, clothing and accessories with student verification.</p>
+            <a href="https://www.nike.com/gb/student-discount" class="brand-link" target="_blank">Get Deal</a>
+</div>
+</div>
+
+<!-- Deliveroo -->
+            <div class="brand-card-large" data-category="food">
+            <div class="brand-image-large">
+                    <img src="image/Deliveroo_Logo.svg.png" alt="Deliveroo">
+            </div>
+            <div class="brand-info-large">
+            <h3>Deliveroo</h3>
+            <span class="brand-discount">FREE Delivery + £5 OFF</span>
+            <span class="brand-discount"><b>COUPON-CODE=<u>DV10</u></b> </span>
+            <p class="brand-description">Student discount on food delivery from your favorite restaurants.</p>
+            <a href="https://www.deliveroostudents.co.uk/" class="brand-link" target="_blank">Get Deal</a>
+</div>
+</div>
+
+<!-- Booking.com -->
+           <div class="brand-card-large" data-category="travel">
+           <div class="brand-image-large">
+                    <img src="image/Booking.com_logo.svg.png" alt="Booking.com">
+           </div>
+           <div class="brand-info-large">
+             <h3>Booking.com</h3>
+             <span class="brand-discount">Up to 20% OFF</span>
+             <span class="brand-discount"><b>COUPON-CODE=<u>BK11</u></b> </span>
+             <p class="brand-description">Exclusive discounts on hotels, flights and car rentals worldwide.</p>
+             <a href="https://www.booking.com" class="brand-link" target="_blank">Get Deal</a>
+ </div>
+ </div>
+
+            <!-- Acer -->
+            <div class="brand-card-large" data-category="tech">
+                <div class="brand-image-large">
+                    <img src="image/Acer_Logo.svg.png" alt="Acer">
+                </div>
+                <div class="brand-info-large">
+                    <h3>Acer</h3>
+                    <span class="brand-discount">Up to 18% OFF</span>
+                    <span class="brand-discount"><b>COUPON-CODE=<u>AC18</u></b> </span>
+                    <p class="brand-description">Student discounts on laptops, monitors and accessories.</p>
+                    <a href="https://www.acer.com/ac/en/GB/content/student-discount" class="brand-link" target="_blank">Get Deal</a>
+                </div>
+            </div>
+
+            <!-- Fitbit -->
+            <div class="brand-card-large" data-category="health">
+                <div class="brand-image-large">
+                    <img src="image/Fitbit_logo16.svg.png" alt="Fitbit">
+                </div>
+                <div class="brand-info-large">
+                    <h3>Fitbit</h3>
+                    <span class="brand-discount">25% OFF Premium</span>
+                    <span class="brand-discount"><b>COUPON-CODE=<u>FB25</u></b> </span>
+                    <p class="brand-description">Discounts on fitness trackers and health monitoring devices.</p>
+                    <a href="https://www.fitbit.com/global/uk/home" class="brand-link" target="_blank">Get Deal</a>
+                </div>
+            </div>
+
+<!-- Netflix -->
+            <div class="brand-card-large" data-category="entertainment">
+            <div class="brand-image-large">
+            <img src="image/Netflix_2015_logo.svg.png" alt="Netflix">
+  </div>
+            <div class="brand-info-large">
+            <h3>Netflix</h3>
+            <span class="brand-discount">25% OFF Premium Plan</span>
+            <span class="brand-discount"><b>COUPON-CODE=<u>NF25</u></b> </span>
+            <p class="brand-description">Student discount on the Premium plan with HD and Ultra HD streaming.</p>
+            <a href="https://www.netflix.com/gb/" class="brand-link" target="_blank">Get Deal</a>
+</div>
+</div>
+
+<!-- Spotify -->
+            <div class="brand-card-large" data-category="entertainment">
+            <div class="brand-image-large">
+                    <img src="image/Spotify_logo_without_text.svg.png" alt="Spotify">
+            </div>
+            <div class="brand-info-large">
+            <h3>Spotify</h3>
+            <span class="brand-discount">Premium for £5.99/month</span>
+            <span class="brand-discount"><b>COUPON-CODE=<u>Sp599</u></b> </span>
+            <p class="brand-description">Student discount on Spotify Premium with Hulu included.</p>
+            <a href="https://www.spotify.com/uk/student/" class="brand-link" target="_blank">Get Deal</a>
+</div>
+</div>
+
+<!-- Microsoft -->
+            <div class="brand-card-large" data-category="tech">
+            <div class="brand-image-large">
+                    <img src="image/Microsoft_logo_(2012).svg.png" alt="Microsoft">
+            </div>
+            <div class="brand-info-large">
+            <h3>Microsoft</h3>
+            <span class="brand-discount">Up to 10% OFF</span>
+            <span class="brand-discount"><b>COUPON-CODE=<u>MS10</u></b> </span>
+            <p class="brand-description">Student discounts on Surface devices, software and Xbox.</p>
+            <a href="https://www.microsoft.com/en-gb/education" class="brand-link" target="_blank">Get Deal</a>
+</div>
+ </div>
+
+ <!-- ASOS -->
+            <div class="brand-card-large" data-category="fashion">
+            <div class="brand-image-large">
+                    <img src="image/Asos.svg.png" alt="ASOS">
+            </div>
+            <div class="brand-info-large">
+            <h3>ASOS</h3>
+            <span class="brand-discount">10% OFF for Students</span>
+            <span class="brand-discount"><b>COUPON-CODE=<u>AS30</u></b> </span>
+            <p class="brand-description">Discount on thousands of brands with student verification.</p>
+            <a href="https://www.asos.com/student/" class="brand-link" target="_blank">Get Deal</a>
+         </div>
+        </div>
+
+<!-- Adobe -->
+            <div class="brand-card-large" data-category="tech">
+            <div class="brand-image-large">
+                    <img src="image/Adobe_Corporate_logo.svg.png" alt="Adobe">
+ </div>
+            <div class="brand-info-large">
+            <h3>Adobe</h3>
+            <span class="brand-discount">60% OFF Creative Cloud</span>
+            <span class="brand-discount"><b>COUPON-CODE=<u>AD20</u></b> </span>
+            <p class="brand-description">Student discount on Photoshop, Illustrator and more.</p>
+            <a href="https://www.adobe.com/uk/creativecloud/buy/students" class="brand-link" target="_blank">Get Deal</a>
+ </div>
+ </div>
+</div>
+                                 </section>
+
+    <!-- Footer -->
+ <footer>
+            <div class="footer-content">
+            <div class="footer-links">
+                <a href="About.html">About Us</a>
+                <a href="contact us.html">Contact Us</a>
+            </div>
+            <div class="copyright">
+                &copy; StudyDealz. All rights reserved.
+            </div>
+            </div>
+    </footer>
+
+
+
+
+
+    <!-- js -->
+    <script>
+        //  BRANDS FILTER FUNCTIONALITY 
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const brandCards = document.querySelectorAll('.brand-card-large');
+    
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const category = button.dataset.category;
+                    
+                    brandCards.forEach(card => {
+                        if (category === 'all') {
+                            card.style.display = 'block'; 
+                        } else if (card.dataset.category === category) {
+                            card.style.display = 'block'; 
+                        } else {
+                            card.style.display = 'none'; 
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
