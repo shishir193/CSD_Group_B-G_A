@@ -291,7 +291,7 @@
                 <b><a href="Home.html">Home</a></b>
                 <b><a href="Brands.html">Brands</a></b>
                 <b><a href="news.html">News</a></b>
-                <b><a href="Review.html">Review</a></b>
+                <b><a href="review.html">Review</a></b>
                 <b><a href="About.html">About us</a></b>
             </nav>
         </div>
@@ -321,7 +321,7 @@
             <!-- News Item 1 -->
             <div class="news-card" data-category="offers">
                 <div class="news-image">
-                    <img src="image/people tog.avif" alt="Back to School Offers">
+                    <img src="image/people tog.jpg" alt="Back to School Offers">
                 </div>
                 <div class="news-content">
                     <div class="news-date">August 15, 2025</div>
@@ -333,7 +333,7 @@
             <!-- News Item 2 -->
             <div class="news-card" data-category="new">
                 <div class="news-image">
-                    <img src="image/girl.avif" alt="New Spotify Deal">
+                    <img src="image/girl.jpg" alt="New Spotify Deal">
                 </div>
                 <div class="news-content">
                     <div class="news-date">August 10, 2025</div>
@@ -345,7 +345,7 @@
             <!-- News Item 3 -->
             <div class="news-card" data-category="expiring">
                 <div class="news-image">
-                    <img src="image/deli.avif" alt="Food Delivery Offers">
+                    <img src="image/deli.jpg" alt="Food Delivery Offers">
                 </div>
                 <div class="news-content">
                     <div class="news-date">August 5, 2025</div>
@@ -381,7 +381,7 @@
             <!-- News Item 6 -->
             <div class="news-card" data-category="offers">
                 <div class="news-image">
-                    <img src="image/fashion sale.avif" alt="Fashion Sale">
+                    <img src="image/fashion sale.jpg" alt="Fashion Sale">
                 </div>
                 <div class="news-content">
                     <div class="news-date">July 15, 2025</div>
@@ -408,16 +408,13 @@
 
   
     <script>
-    // Simple filter functionality for news categories
     document.addEventListener('DOMContentLoaded', function() {
         const filterButtons = document.querySelectorAll('.filter-btn');
         const newsCards = document.querySelectorAll('.news-card');
 
         filterButtons.forEach(button => {
             button.addEventListener('click', function() {
-                // Remove active class from all buttons
                 filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
                 this.classList.add('active');
                 
                 const category = this.dataset.category;
@@ -438,7 +435,6 @@
         actionButtons.forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
-                // In a real implementation, this would navigate to the full article/offer
                 alert('This would navigate to the full article/offer page in a complete implementation');
             });
         });
